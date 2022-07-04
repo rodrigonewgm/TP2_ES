@@ -1,17 +1,29 @@
 let urlUsers = "https://jsonplaceholder.typicode.com/users";
 let urlAlbums = "https://jsonplaceholder.typicode.com/users/1/albums";
 
+let forma1 = function() {
+let data = [];
 fetch(urlUsers) //solicitamos los datos
     .then(response => response.json()) //se resuelve la promesa y la respuesta la convertimos a json
+    .then(response => data.push(response))
     .then(data => console.log(data)) // leemos el objeto data y lo mostramos
     .catch(error => console.log(error)) // si aparece un error lo atrapamos.
+    return data;
+}
 
-let mostrarData = data => {
-    console.log(data);
+//obtener albums
+let forma2 = async function getAlbums() {
+    let response = await fetch(urlAlbums);
+    let data = await response.json();
+  return data;
+}
 
     //obtener usuarios
-    let mostrarUsuarios = "";
-    for (let i = 0; i < data.length; i++) {
+    function getUsers(data) {
+        console.log(data);
+        console.log(typeof data);
+let mostrarUsuarios = ""
+    for (let i = 0; i < data.length; i++){
     mostrarUsuarios += $;{data[i].id} +
                         $;{data[i].name}; +
                         $;{data[i].username}; +
@@ -22,23 +34,12 @@ let mostrarData = data => {
                         $;{data[i].website}; +
                         $;{data[i].company};
         };
-    return mostrarUsuarios(data)
+  return mostrarUsuarios
 }
 
-//obtener albums
-async function getAlbums(...params) {
-    let [id, cb] = params;
-
-    let data = await cb(urlAlbums);
-    let albums = [...data];
-    let filtered = filterById(id, albums);
-    console.log(filtered);
+function getAlbums(data){
+return data;
 }
 
-function filterById(...params) {
-    let [id, albums] = params
-    return albums.filter(e => e.id === id);
-}
-
-getUsers()
-getAlbums()
+console.log(getUsers(forma1()));
+console.log(getAlbums(forma2()))
